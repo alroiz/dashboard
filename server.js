@@ -8,7 +8,8 @@ var config = require('./config/config'),
 var db = mongoose(),
 	app = express();
 
-var server=app.listen(config.port);
+//var server=app.listen(config.port);
+var server=app.listen(process.env.PORT || 3000)
 var serv_io=io(server);
 
 
