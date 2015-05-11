@@ -1,0 +1,46 @@
+<html>
+<body>
+<h1>Real Time Monitoring</h1>
+<div id="dataConnect" style="border:1px solid black;margin:10px;float:left;overflow:hidden"></div>
+<div id="dataAd" style="border:1px solid black;margin:10px;float:left;overflow:hidden"></div>
+<div id="dataNavigation" style="clear:both;border:1px solid black;margin:10px;float:left;overflow:hidden"></div>
+<div id="dataExecution" style="border:1px solid black;margin:10px;float:left;overflow:hidden"></div>
+<div id="dataDownload" style="border:1px solid black;margin:10px;float:left;overflow:hidden"></div>
+<script src="js/socket.io.min.js"></script>
+<script>
+    var socket = io.connect('http://localhost:3002');
+    socket.on('connect', function () {
+        socket.on('updateConnectResponse', function (msg) {
+            var objDiv=document.getElementById("dataConnect");
+            objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.mac;
+        }); 
+        
+        socket.on('updateAdResponse', function (msg) {
+            var objDiv=document.getElementById("dataAd");
+            objDiv.innerHTML="";
+            msg.forEach(function(ad) {
+            	objDiv.innerHTML=objDiv.innerHTML+"<br>"+ad.banner;
+              });
+            //objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.mac;
+        });
+        
+        socket.on('updateNavigationResponse', function (msg) {
+            var objDiv=document.getElementById("dataNavigation");
+            objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.menu;
+        });
+        
+        socket.on('updateExecutionResponse', function (msg) {
+            var objDiv=document.getElementById("dataExecution");
+            objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.ip;
+        });    
+
+        socket.on('updateDownloadResponse', function (msg) {
+            var objDiv=document.getElementById("dataDownload");
+            objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.ip;
+        });
+    });
+  
+
+</script>
+</body>
+</html>
