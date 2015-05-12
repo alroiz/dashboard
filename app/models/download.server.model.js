@@ -6,7 +6,8 @@ var DownloadSchema = new Schema({
 	date: {type: Date, default: Date.now},
 	mac: String,
 	ip: String,
-	package: String
+	package: String,
+	type: String
 });
 
 mongoose.model('Download', DownloadSchema);
