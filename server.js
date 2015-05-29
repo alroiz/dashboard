@@ -4,12 +4,11 @@ var config = require('./config/config'),
 	mongoose = require('./config/mongoose'),
 	express = require('./config/express'),
 	io = require('./config/socket.io')
-
 var db = mongoose(),
 	app = express();
 
 //var server=app.listen(config.port);
-var server=app.listen(process.env.PORT || 3000)
+var server=app.listen(process.env.PORT || 3002)
 var serv_io=io(server);
 
 

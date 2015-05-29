@@ -1,11 +1,17 @@
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+	//Schema = mongoose.Schema
+var util = require('util');
+var schemas=require('./schemas/connect.server.schema.js');
 
-var ConnectSchema = new Schema({
-	id: String,
-	date: { type: Date, default: Date.now },
-	mac: String,
-	ip: String
-});
 
-mongoose.model('Connect', ConnectSchema);
+module.exports = function() {
+	var ConnectSchema = schemas.getConnectSchema();
+    var ConnectDailySchema = schemas.getConnectDailySchema();
+    var ConnectMonthlySchema =schemas.getConnectMonthlySchema();
+    var ConnectYearlySchema = schemas.getConnectYearlySchema();
+    mongoose.model('Connect', ConnectSchema);
+    mongoose.model('ConnectDaily', ConnectDailySchema);
+    mongoose.model('ConnectMonthly', ConnectMonthlySchema);
+    mongoose.model('ConnectYearly', ConnectYearlySchema);
+   
+}

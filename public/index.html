@@ -26,20 +26,17 @@
         
         socket.on('updateNavigationResponse', function (msg) {
             var objDiv=document.getElementById("dataNavigation");
-            objDiv.innerHTML="";
             objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.menu;
         });
         
         socket.on('updateExecutionResponse', function (msg) {
             var objDiv=document.getElementById("dataExecution");
-            objDiv.innerHTML="";
-            objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.package;
+            objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.ip;
         });    
 
         socket.on('updateDownloadResponse', function (msg) {
             var objDiv=document.getElementById("dataDownload");
-            objDiv.innerHTML="";
-            objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.package;
+            objDiv.innerHTML=objDiv.innerHTML+"<br>"+msg.ip;
         });
     });
   
