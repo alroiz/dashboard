@@ -1,7 +1,7 @@
 var util = require('util');
 
-exports.getConnects = function(req, res, next) {	
-  /*req format:{
+exports.getDownloads = function(req, res, next) {	
+	/*req format:{
     {
       "scope": "y"/"d"/"m",
       "type":"range"/"actual"/"number",
@@ -14,12 +14,11 @@ exports.getConnects = function(req, res, next) {
       "metadata": {
       }
     }
-  }*/
-  var Connect;
+	}*/
+  var Download;
 
   var match={},project={},group={},sort={};
   var actualDate=new Date();
-  //console.log ("From: "+req.body.from);
   if (!req.body.from){
     req.body.from=actualDate;
   }else{
@@ -32,7 +31,7 @@ exports.getConnects = function(req, res, next) {
   }
 
   if (req.body.scope==="d"){
-    Connect = require('mongoose').model('ConnectDaily');
+    Download = require('mongoose').model('DownloadDaily');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth())).slice(-2),
@@ -73,6 +72,8 @@ exports.getConnects = function(req, res, next) {
        "id":"$id",
        "app": "$metadata.app.name",
        "version": "$metadata.app.version",
+       "package":"$metadata.package",
+       "type":"$metadata.type",       
        "00":"$hourly.0",
        "01":"$hourly.1",
        "02":"$hourly.2",
@@ -101,6 +102,7 @@ exports.getConnects = function(req, res, next) {
     }
     
     group={
+      //_id: {app:"$metadata.app.name",version:"$metadata.app.version",package:"$metadata.package",type:"$metadata.type"}, 
       _id: {scope:"$id",app:"$app",version:"$version"}, 
       "00":{ $sum: "$00" },      
       "01":{ $sum: "$01" },
@@ -131,7 +133,7 @@ exports.getConnects = function(req, res, next) {
 
 
   }else if (req.body.scope==="m"){
-    Connect = require('mongoose').model('ConnectMonthly');
+    Download = require('mongoose').model('DownloadMonthly');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth())).slice(-2),
@@ -141,7 +143,7 @@ exports.getConnects = function(req, res, next) {
       tm=("0" + (req.body.to.getMonth())).slice(-2),
       td=("0" + (req.body.to.getDate())).slice(-2),
       idt=parseInt(ty+tm);
-      
+
       sort={id: 1};
 
       match={
@@ -164,6 +166,8 @@ exports.getConnects = function(req, res, next) {
        "id":"$id",
        "app": "$metadata.app.name",
        "version": "$metadata.app.version",
+       "package":"$metadata.package",
+       "type":"$metadata.type",
        "00":"$daily.0",
        "01":"$daily.1",
        "02":"$daily.2",
@@ -199,7 +203,7 @@ exports.getConnects = function(req, res, next) {
       };      
     
     group={
-      _id: {scope:"$id",app:"$app",version:"$version"},  
+      _id: {scope:"$id",app:"$app",version:"$version"},
       "00":{ $sum: "$00" },      
       "01":{ $sum: "$01" },
       "02":{ $sum: "$02" },
@@ -235,7 +239,7 @@ exports.getConnects = function(req, res, next) {
       }
     }
   }else if (req.body.scope==="y"){
-    Connect = require('mongoose').model('ConnectYearly');
+    Download = require('mongoose').model('DownloadYearly');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth())).slice(-2),
@@ -281,7 +285,8 @@ exports.getConnects = function(req, res, next) {
       };      
     
     group={
-      _id: {scope:"$id",app:"$app",version:"$version"},  
+      //_id: {app:"$metadata.app.name",version:"$metadata.app.version",package:"$metadata.package",type:"$metadata.type"}, 
+      _id: {scope:"$id",app:"$app",version:"$version"},
       "00":{ $sum: "$00" },      
       "01":{ $sum: "$01" },
       "02":{ $sum: "$02" },
@@ -299,13 +304,12 @@ exports.getConnects = function(req, res, next) {
   }
 
   //console.log(util.inspect(match));
-  Connect.aggregate([{$match:match},{$sort:sort},{$project:project},{$group:group}],function (err, result) {
+  Download.aggregate([{$match:match},{$sort:sort},{$project:project},{$group:group}],function (err, result) {
         if (err) {
             console.log(err);
             return;
         }
-        //console.log(result);
-
+        console.log(result);
         res.json(result);
     });
 };

@@ -11,7 +11,6 @@ var db = mongoose(),
 var server=app.listen(process.env.PORT || 3002)
 var serv_io=io(server);
 
-
 module.exports = app;
 
 
