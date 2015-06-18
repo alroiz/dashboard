@@ -1,5 +1,6 @@
 var connect = require('../../app/controllers/connect.server.controller');
 var download = require('../../app/controllers/download.server.controller');
+var execution = require('../../app/controllers/execution.server.controller');
 
 var express = require('express');
 var router = express.Router();
@@ -26,7 +27,11 @@ module.exports = function(router) {
  	* Routes that can be accessed only by autheticated users
  	*/
 	router.post('/api/v1/getConnects', connect.getConnects);
+	router.post('/api/v1/getDevices', connect.getDevices);
 	router.post('/api/v1/getDownloads', download.getDownloads);
+	router.post('/api/v1/getDownloadsApp', download.getDownloadsApp);
+	router.post('/api/v1/getExecutions', execution.getExecutions);
+	router.post('/api/v1/getExecutionsApp', execution.getExecutionsApp);
 	/*router.get('/api/v1/product/:id', products.getOne);
 	router.post('/api/v1/product/', products.create);
 	router.put('/api/v1/product/:id', products.update);

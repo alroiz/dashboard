@@ -1,6 +1,6 @@
 var util = require('util');
 
-exports.getDownloads = function(req, res, next) {	
+exports.getExecutions = function(req, res, next) {	
 	/*req format:{
     {
       "scope": "y"/"d"/"m",
@@ -15,7 +15,7 @@ exports.getDownloads = function(req, res, next) {
       }
     }
 	}*/
-  var Download;
+  var Execution;
 
   var match={},project={},group={},sort={};
   var actualDate=new Date();
@@ -31,7 +31,7 @@ exports.getDownloads = function(req, res, next) {
   }
 
   if (req.body.scope==="d"){
-    Download = require('mongoose').model('DownloadDaily');
+    Execution = require('mongoose').model('ExecutionDaily');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth()+1)).slice(-2),
@@ -134,7 +134,7 @@ exports.getDownloads = function(req, res, next) {
 
 
   }else if (req.body.scope==="m"){
-    Download = require('mongoose').model('DownloadMonthly');
+    Execution = require('mongoose').model('ExecutionMonthly');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth()+1)).slice(-2),
@@ -241,7 +241,7 @@ exports.getDownloads = function(req, res, next) {
       }
     }
   }else if (req.body.scope==="y"){
-    Download = require('mongoose').model('DownloadYearly');
+    Execution = require('mongoose').model('ExecutionYearly');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth()+1)).slice(-2),
@@ -307,7 +307,7 @@ exports.getDownloads = function(req, res, next) {
   }
 
   //console.log(util.inspect(match));
-  Download.aggregate([{$match:match},{$sort:sort},{$project:project},{$group:group}],function (err, result) {
+  Execution.aggregate([{$match:match},{$sort:sort},{$project:project},{$group:group}],function (err, result) {
       var finalResult={}
         if (err) {
             console.log(err);
@@ -323,7 +323,7 @@ exports.getDownloads = function(req, res, next) {
 
 
 
-exports.getDownloadsApp = function(req, res, next) { 
+exports.getExecutionsApp = function(req, res, next) { 
   /*req format:{
     {
       "scope": "y"/"d"/"m",
@@ -338,7 +338,7 @@ exports.getDownloadsApp = function(req, res, next) {
       }
     }
   }*/
-  var Download;
+  var Execution;
 
   var match={},project={},group={},sort={};
   var actualDate=new Date();
@@ -354,7 +354,7 @@ exports.getDownloadsApp = function(req, res, next) {
   }
 
   if (req.body.scope==="d"){
-    Download = require('mongoose').model('DownloadDaily');
+    Execution = require('mongoose').model('ExecutionDaily');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth()+1)).slice(-2),
@@ -369,7 +369,7 @@ exports.getDownloadsApp = function(req, res, next) {
       th=parseInt(("0" + (req.body.to.getHours())).slice(-2));
       idt=parseInt(ty+tm+td);
 
-      sort={id: 1};
+      sort={total:1};
 
       match={
         id:{$gte: ""+idf, $lte: ""+idt}
@@ -427,7 +427,7 @@ exports.getDownloadsApp = function(req, res, next) {
     
     group={
       //_id: {app:"$metadata.app.name",version:"$metadata.app.version",package:"$metadata.package",type:"$metadata.type"}, 
-      _id: {scope:"$id",app:"$app",version:"$version", appPackage:"$appPackage", type:"$type"}, 
+      _id: {appPackage:"$appPackage", type:"$type"}, 
       "00":{ $sum: "$00" },      
       "01":{ $sum: "$01" },
       "02":{ $sum: "$02" },
@@ -458,7 +458,7 @@ exports.getDownloadsApp = function(req, res, next) {
 
 
   }else if (req.body.scope==="m"){
-    Download = require('mongoose').model('DownloadMonthly');
+    Execution = require('mongoose').model('ExecutionMonthly');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth()+1)).slice(-2),
@@ -529,7 +529,7 @@ exports.getDownloadsApp = function(req, res, next) {
       };      
     
     group={
-      _id: {scope:"$id",app:"$app",version:"$version", appPackage:"$appPackage", type:"$type"},
+      _id: {appPackage:"$appPackage", type:"$type"},
       "00":{ $sum: "$00" },      
       "01":{ $sum: "$01" },
       "02":{ $sum: "$02" },
@@ -565,7 +565,7 @@ exports.getDownloadsApp = function(req, res, next) {
       }
     }
   }else if (req.body.scope==="y"){
-    Download = require('mongoose').model('DownloadYearly');
+    Execution = require('mongoose').model('ExecutionYearly');
     if (req.body.type==="range"){
       var fy=req.body.from.getFullYear(),
       fm=("0" + (req.body.from.getMonth()+1)).slice(-2),
@@ -615,7 +615,7 @@ exports.getDownloadsApp = function(req, res, next) {
     
     group={
       //_id: {app:"$metadata.app.name",version:"$metadata.app.version",package:"$metadata.package",type:"$metadata.type"}, 
-      _id: {scope:"$id",app:"$app",version:"$version", appPackage:"$appPackage", type:"$type"},
+      _id: {appPackage:"$appPackage", type:"$type"},
       "00":{ $sum: "$00" },      
       "01":{ $sum: "$01" },
       "02":{ $sum: "$02" },
@@ -633,7 +633,7 @@ exports.getDownloadsApp = function(req, res, next) {
   }
 
   //console.log(util.inspect(match));
-  Download.aggregate([{$match:match},{$sort:sort},{$project:project},{$group:group}],function (err, result) {
+  Execution.aggregate([{$match:match},{$project:project},{$group:group}],function (err, result) {
       var finalResult={}
         if (err) {
             console.log(err);

@@ -1,0 +1,143 @@
+<html>
+    <head>
+        <title>Magicbox dashboard</title>
+
+        <script>
+        	var d = new Date();
+		    var myConfig={
+		    	"conn":{
+		    		"url":"http://192.168.1.146:3002/api/v1/getExecutions",
+		    		"params":{
+						"scope": "d",
+			    		"type":"range",
+						"from": "06-16-2015",
+						"to": "06-16-2015",
+			    		"app":{
+			    			"name":"CVTEPortal",
+			    			"version":"*"
+			    		},  
+						"metadata": {
+						}
+		    		}
+		    	},
+		    	"layout":{
+		    		"container":"myContainer",
+		    		"type":"Bar",
+    				"width":"400",
+    				"height":"400",
+    				"legend":"Connected devices (day view)",
+    				"dataTable": false
+		    	}
+			}
+		    var myConfig2={
+		    	"conn":{
+		    		"url":"http://192.168.1.146:3002/api/v1/getExecutions",
+		    		"params":{
+						"scope": "m",
+			    		"type":"range",
+						"from": "06-16-2015",
+						"to": "06-16-2015",
+			    		"app":{
+			    			"name":"CVTEPortal",
+			    			"version":"*"
+			    		},  
+						"metadata": {
+						}
+		    		}
+		    	},
+		    	"layout":{
+		    		"container":"myContainer",
+		    		"type":"Line",
+    				"width":"400",
+    				"height":"400",
+    				"legend":"Connected devices (month view)"		    		
+		    	}
+			}
+		    var myConfig3={
+		    	"conn":{
+		    		"url":"http://192.168.1.146:3002/api/v1/getExecutions",
+		    		"params":{
+						"scope": "y",
+			    		"type":"range",
+						"from": "06-16-2015",
+						"to": "06-16-2015",
+			    		"app":{
+			    			"name":"CVTEPortal",
+			    			"version":"*"
+			    		},  
+						"metadata": {
+						}
+		    		}
+		    	},
+		    	"layout":{
+		    		"container":"myContainer",
+		    		"type":"Bar",
+    				"width":"400",
+    				"height":"400",
+    				"legend":"Connected devices (year view)"		    		
+		    	}
+			}
+		    var myConfig4={
+		    	"conn":{
+		    		"url":"http://localhost:3002/api/v1/getExecutions",
+		    		"params":{
+						"scope": "y",
+			    		"type":"range",
+						"from": "06-16-2015",
+						"to": "06-16-2015",
+			    		"app":{
+			    			"name":"CVTEPortal",
+			    			"version":"*"
+			    		},  
+						"metadata": {
+						}
+		    		}
+		    	},
+		    	"layout":{
+		    		"container":"myContainer",
+		    		"type":"Pie",
+    				"width":"400",
+    				"height":"400",
+    				"legend":"Connected devices (year view)"		    		
+		    	}
+			}			
+			var myChart;
+			var myChart2;
+			var myChart3;
+			var myChart4;
+        	function init(){
+        		//myChart=new magicbox.magicChart.init(myConfig);
+        		myChart=new magicbox.magicChart();
+        		myChart.init(myConfig);
+        		//myConfig.conn.url="http://localhost:3002/api/v1/getDownloads"
+        		myChart2=new magicbox.magicChart();
+        		myChart2.init(myConfig2);
+        		//myConfig.conn.url="http://localhost:3002/api/v1/getDownloads"
+        		myChart3=new magicbox.magicChart();
+        		myChart3.init(myConfig3);
+        		myChart4=new magicbox.magicChart();
+        		myChart4.init(myConfig4);        		
+        	}
+
+
+        </script>
+    </head>
+<body onload="init()">
+<h1>Real Time Monitoring</h1>
+
+<div id="myContainer">
+
+
+</div>
+<div id="myContainer2"></div>
+<div id="myContainer3"></div>
+
+<script type="text/javascript" src="app/javascript/vendors/jquery-1.7.js"></script>
+<script type="text/javascript" src="app/javascript/magicbox.stats.log.js"></script>
+<script type="text/javascript" src="app/javascript/vendors/Chart.js"></script>
+<script type="text/javascript" src="app/javascript/magicbox.chart.js"></script>
+<script type="text/javascript" src="app/javascript/magicbox.stats.config.js"></script>
+
+
+</body>
+</html>
