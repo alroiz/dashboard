@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <html>
@@ -221,4 +222,229 @@
 
 
 </body>
+=======
+<!DOCTYPE html>
+<html lang="es">
+<html>
+    <head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta name="description" content="">
+    	<meta name="author" content="MagicBox">
+        
+        <title>Magicbox dashboard</title>
+        
+        <!-- Bootstrap core CSS -->
+	    <link href="app/stylesheets/bootstrap.css" rel="stylesheet">
+	    <!--external css-->
+	    <link href="app/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	        
+	    <!-- Custom styles for this template -->
+	    <link href="app/stylesheets/style.css" rel="stylesheet">
+	    <link href="app/stylesheets/style-responsive.css" rel="stylesheet">
+	    <link href="app/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
+	    <link href="app/lineicons/style.css" rel="stylesheet">
+	
+		
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+    </head>
+    
+    
+<body onload="magicbox.stats.main.onLoad()">
+	
+	<section id="container" >
+		
+		<!--header start-->
+      	<header class="header black-bg">
+      		<div class="sidebar-toggle-box">
+      			<div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
+            <!--logo start-->
+            <a href="index.html" class="logo"><b>MAGICBOX</b></a>
+            <!--logo end-->
+        </header>
+      <!--header end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+              
+              	  <p class="centered"><a href="profile.html"><img src="images/mb.png" class="img-circle" width="180" height="90"></a></p>
+              	  <h5 class="centered">Álvaro Romero</h5>
+              	  	
+                  <li class="mt">
+                      <a class="active" href="connects.html">
+                          <i class="fa fa-refresh"></i>
+                          <span>Portal Openings</span>
+                      </a>
+                  </li>
+                   <li class="sub-menu">
+                      <a href="downloads.html">
+                          <i class="fa fa-download"></i>
+                          <span>Downloads</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                       <a  href="executions.html" >
+                          <i class=" fa fa-bar-chart-o "></i>
+                          <span>Executions</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a  href="devices.html" >
+                          <i class=" fa fa-desktop"></i>
+                          <span>Devices</span>
+                      </a>
+                  </li>
+
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          	<h1>Real Time Monitoring</h1>
+          	
+          	<!-- INLINE FORM ELELEMNTS -->
+          	<div class="row mt">
+          		<div class="col-lg-12">
+          			<div class="form-panel">
+                  	  <h4 class="mb"><i class="fa fa-angle-right"></i> Inline Form</h4>
+                      <form class="form-inline" role="form">
+                          <div class="form-group">
+                              <label class="col-sm-4 control-label">Aplication</label>
+                              <div class="col-sm-6">
+                              	<select class="form-control aplication">
+								  <option>CVTEPortal</option>
+								</select>
+								</div>
+                          </div>
+                          
+                          <div class="form-group">
+                             <label class="col-sm-4 control-label">Version</label>
+                             <div class="col-sm-6">
+                              	<select class="form-control version">
+								  <option value="MB-0.2.1-D">MB-0.2.1-D</option>
+								  <option value="*">Any</option>
+								  <option>3</option>
+								  <option>4</option>
+								  <option>5</option>
+								</select> 
+							</div> 
+                          </div>
+                          
+                          <div class="form-group">
+                              <label class="col-sm-4 control-label">Scope</label>
+                              <div class="col-sm-6">
+                              	<select class="form-control scope">
+								  <option value="d">Day</option>
+								  <option value="m">Month</option>
+								  <option value="y">Year</option>
+								</select>
+								</div>
+                          </div>
+                          
+                          <div class="form-group">
+	                        <div class="input-daterange input-group" id="datepicker">
+						        <input type="text" class="input-sm form-control" name="start" />
+						        <span class="input-group-addon">to</span>
+						        <input type="text" class="input-sm form-control" name="end" />
+						    </div>
+						   </div>
+                          <button type="submit" class="btn btn-theme">View charts</button>
+                      </form>
+          			</div><!-- /form-panel -->
+          		</div><!-- /col-lg-12 -->
+          	</div><!-- /row -->
+          	
+          	<h3><i class="fa fa-angle-right"></i> Portal Openings</h3>
+              <!-- page start-->
+              <div class="tab-pane" id="chartjs">
+                  <div class="row mt">
+                      <div class="col-lg-6">
+                          <div class="content-panel">
+							  <h4><i class="fa fa-angle-right"></i> Aggregated by hours (day view)</h4>
+                              <div id="myContainer" class="panel-body text-center"></div>
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="content-panel">
+							  <h4><i class="fa fa-angle-right"></i> Aggregated by days (month view)</h4>
+                              <div id="myContainer2" class="panel-body text-center"></div>
+                          </div>
+                      </div>
+                   </div>
+                   <div class="row mt">
+                      <div class="col-lg-6">
+                          <div class="content-panel">
+							  <h4><i class="fa fa-angle-right"></i> Aggregated by months (year view)</h4>
+                              <div id="myContainer3" class="panel-body text-center"></div>
+                          </div>
+                      </div>
+                  </div>                 
+              </div>
+              <!-- page end-->
+          </section>          
+      </section><!-- /MAIN CONTENT -->
+      
+      
+      <!--main content end-->
+      <!--footer start-->
+      <footer class="site-footer">
+          <div class="text-center">
+              2015 - MAGICBOX
+              <a href="#" class="go-top">
+                  <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+      </footer>
+      <!--footer end-->
+	</section>
+	
+<script type="text/javascript" src="app/javascript/vendors/jquery.js"></script>
+<script type="text/javascript" src="app/javascript/vendors/Chart.js"></script>
+<script type="text/javascript" src="app/javascript/magicbox.chart.js"></script>
+
+<script type="text/javascript" src="app/javascript/magicbox.stats.config.js"></script>
+<script type="text/javascript" src="app/javascript/magicbox.stats.log.js"></script>
+
+
+<script type="text/javascript" src="app/javascript/vendors/bootstrap.min.js"></script>
+<script type="text/javascript" class="include" src="app/javascript/vendors/jquery.dcjqaccordion.2.7.js"></script>
+<script type="text/javascript" src="app/javascript/vendors/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="app/javascript/vendors/jquery.nicescroll.js"></script>
+
+
+<script type="text/javascript" src="app/javascript/vendors/common-scripts.js"></script>
+
+<script type="text/javascript" src="app/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="app/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+
+
+<!--<script type="text/javascript" src="app/javascript/vendors/bootstrap-switch.js"></script>
+<script type="text/javascript" src="app/javascript/vendors/form-component.js"></script>
+<script type="text/javascript" src="app/javascript/vendors/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="app/javascript/vendors/bootstrap-inputmask.min.js"></script>-->
+
+
+<script type="text/javascript" src="app/javascript/magicbox.stats.main.js"></script>
+
+
+</body>
+>>>>>>> 4fc04d975638861ab64f66e829d1e4e96e75639e
 </html>
