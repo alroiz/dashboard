@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>StatisticsDashboard</name>
@@ -10,16 +9,3 @@
 	<natures>
 	</natures>
 </projectDescription>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<projectDescription>
-	<name>StatisticsDashboard</name>
-	<comment></comment>
-	<projects>
-	</projects>
-	<buildSpec>
-	</buildSpec>
-	<natures>
-	</natures>
-</projectDescription>
->>>>>>> 4fc04d975638861ab64f66e829d1e4e96e75639e
