@@ -69,7 +69,7 @@ magicbox.stats.log=function () {
             LOG_W = 3,
             LOG_E = 4; 
   
-    var DebugDevice = TV,
+    var DebugDevice = NODEBUG,
         DebugLevel = LOG_V,
         divLogElement,
         count=0;
