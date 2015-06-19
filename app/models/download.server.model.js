@@ -1,12 +1,15 @@
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+    //Schema = mongoose.Schema
+    schemas=require('./schemas/download.server.schema.js');
 
-var DownloadSchema = new Schema({
-	id: String,
-	date: {type: Date, default: Date.now},
-	mac: String,
-	ip: String,
-	package: String
-});
+module.exports = function() {
+    var DownloadSchema = schemas.getDownloadSchema();
+    var DownloadDailySchema = schemas.getDownloadDailySchema();
+    var DownloadMonthlySchema =schemas.getDownloadMonthlySchema();
+    var DownloadYearlySchema = schemas.getDownloadYearlySchema();   
 
-mongoose.model('Download', DownloadSchema);
+    mongoose.model('Download', DownloadSchema);
+    mongoose.model('DownloadDaily', DownloadDailySchema);
+    mongoose.model('DownloadMonthly', DownloadMonthlySchema);
+    mongoose.model('DownloadYearly', DownloadYearlySchema);
+}

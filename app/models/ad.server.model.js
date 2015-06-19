@@ -1,12 +1,16 @@
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+    //Schema = mongoose.Schema;
+var util = require('util');     
+var schemas=require('./schemas/ad.server.schema.js');
 
-var AdSchema = new Schema({
-	id: String,
-	date: {type: Date, default: Date.now},
-	mac: String,
-	ip: String,
-	banner: String
-});
+module.exports = function() {
+    var AdSchema = schemas.getAdSchema();
+    var AdDailySchema = schemas.getAdDailySchema();
+    var AdMonthlySchema = schemas.getAdMonthlySchema();
+    var AdYearlySchema = schemas.getAdYearlySchema();
 
-mongoose.model('Ad', AdSchema);
+    mongoose.model('Ad', AdSchema);
+    mongoose.model('AdDaily', AdDailySchema);
+    mongoose.model('AdMonthly', AdMonthlySchema);
+    mongoose.model('AdYearly', AdYearlySchema);
+};

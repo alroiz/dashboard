@@ -18,8 +18,8 @@ exports.updateConnect = function(socket) {
 	var endDate = end.toISOString();
 	//var stream=Connect.find({ date: { $gt: startDate, $lt: endDate } }).stream();
 	
-	Connect.find({ date: { $gt: startDate, $lt: endDate } },function(err,ads){
-		socket.emit("updateConnectResponse", ads);
+	Connect.find({ date: { $gt: startDate, $lt: endDate } },function(err,connects){
+		socket.emit("updateConnectResponse", connects);
 	});
 	
 	/*var stream = Connect.aggregate([
@@ -98,8 +98,8 @@ exports.updateExecution = function(socket) {
 	var startDate = start.toISOString();
 	var endDate = end.toISOString();
 	
-	Execution.find({ date: { $gt: startDate, $lt: endDate } },function(err,ads){
-		socket.emit("updateExecutionResponse", ads);
+	Execution.find({ date: { $gt: startDate, $lt: endDate } },function(err,executions){
+		socket.emit("updateExecutionResponse", executions);
 	});
 	
 	//var stream=Execution.find({ date: { $gt: startDate, $lt: endDate } }).stream();
@@ -124,8 +124,8 @@ exports.updateDownload = function(socket) {
 	var startDate = start.toISOString();
 	var endDate = end.toISOString();
 	//var stream=Download.find({ date: { $gt: startDate, $lt: endDate } }).stream();
-	Download.find({ date: { $gt: startDate, $lt: endDate } },function(err,ads){
-		socket.emit("updateDownloadResponse", ads);
+	Download.find({ date: { $gt: startDate, $lt: endDate } },function(err,downloads){
+		socket.emit("updateDownloadResponse", downloads);
 	});
    
     /*stream.on('error', function (err) {
