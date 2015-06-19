@@ -46,6 +46,8 @@ magicbox.magicChart=function () {
 	var _config={};	
 	var _chart={}; //Stor generated chart
 
+
+
 	function pad (str, max) {
 		str = str.toString();
  		return str.length < max ? pad("0" + str, max) : str;
@@ -55,24 +57,19 @@ magicbox.magicChart=function () {
 		return Math.round(Math.random()*255);
 	};
 
-	function _init(config){
-		_config=config;
-		_getData(config.conn.url,config.conn.params,_makeChartData)
+
+	function _getChart(){
+		return _chart;
 	}
 
-	function _getData(url,data,callback){
-		$.ajax({
-			url: url,
-		    type: 'POST',
-		    contentType:"application/json;charset=UTF-8",
-		    data: JSON.stringify(data)
-		}).done(function (data) {    
-		    callback(data);
-		}).fail(function(jqXHR, textStatus, errorThrown){
-		    log.v(TAG,"Error en AJAX _postProfileUpdate " + textStatus);
-		    callback(errorThrown);
-		});     
+
+	function _init(json,config){
+		_config=config;
+		//_getData(config.conn.url,config.conn.params,_makeChartData)
+		//_makeChartData(json);
+		_render(json);
 	}
+
 
 	function _makeChartData(json){
         var myJSON=json.data;
@@ -101,7 +98,7 @@ magicbox.magicChart=function () {
 
 	       	for (var k=0,maxk=myJSON.length;k<maxk;k+=1){
 		        var dataset={};
-		        dataset.label="";
+		        dataset.label="New";
 				dataset.fillColor= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.5)";
 				dataset.strokeColor= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.8)";
 				dataset.highlightFill= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.75)";
@@ -127,18 +124,27 @@ magicbox.magicChart=function () {
 	    if (_config.layout.dataTable){
 	    	_makeDataTable(myJSON[0]);
 	    }
-		_render(_chartDataItem);
-	}	
 
-	function _makeDataTable(json){
-  		//Generate dataTable
-    	var myRecords = json
-		$('#my-final-table').dynatable({
-  		dataset: {
-    		records: myRecords
-  			}
-		});		
+	    //return _chartDataItem
+		_render(_chartDataItem);
+	}		
+
+	function _getData(url,data,callback){
+		$.ajax({
+			url: url,
+		    type: 'POST',
+		    contentType:"application/json;charset=UTF-8",
+		    data: JSON.stringify(data)
+		}).done(function (data) {    
+		    callback(data);
+		}).fail(function(jqXHR, textStatus, errorThrown){
+		    log.v(TAG,"Error en AJAX _postProfileUpdate " + textStatus);
+		    callback(errorThrown);
+		});     
 	}
+
+
+
 
 	function _createCanvasElement(){
 		var canvas = document.createElement('canvas');
@@ -159,32 +165,29 @@ magicbox.magicChart=function () {
 		var d=new Date();
 		var _ts=d.getTime();		
 		if (_config.layout.type==="Line"){
-			_myBar = new Chart(ctx).Line(myData, {
+			_chart = new Chart(ctx).Line(myData, {
 				responsive : false
 			});		
 		}
 		if (_config.layout.type==="Bar"){
-			_myBar = new Chart(ctx).Bar(myData, {
+			_chart = new Chart(ctx).Bar(myData, {
 				responsive : false
 			});			
 		}
 		if (_config.layout.type==="Pie"){
-			_myBar = new Chart(ctx).Pie(myData, {
+			_chart = new Chart(ctx).Pie(myData, {
 				responsive : false
 			});			
 		}		
 		//then you just need to generate the legend
-  		var _legend = _myBar.generateLegend();
-  		$('#'+_config.layout.container).append(_legend);
-
-
-  		_chart=_myBar;
+  		//var _legend = _chart.generateLegend();
+  		//$('#'+_config.layout.container).append(_legend);
 	}
 
 	return {
 		init : _init,
 		render: _render,
-		getChart: _chart
+		getChart: _getChart
 	};
 }
 

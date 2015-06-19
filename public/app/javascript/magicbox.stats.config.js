@@ -17,9 +17,8 @@ if (!magicbox.stats.config) {
 	magicbox.stats.config = {};
 }
 
-magicbox.stats.config = $.extend(magicbox.stats.config,
-		
-(function () {
+magicbox.stats.config=function () {
+
 "use strict";
 	
 	var _URL_CONNECTS="http://dashboardcvte.herokuapp.com/api/v1/getConnects";
@@ -27,6 +26,4 @@ magicbox.stats.config = $.extend(magicbox.stats.config,
 	return {
 		URL_CONNECTS : _URL_CONNECTS
 	};
-	
-})()
-);
+}()

@@ -29,7 +29,7 @@
     </head>
     
     
-<body onload="magicbox.stats.main.onLoad()">
+<body onload="magicbox.stats.main.onLoadDevices()">
 	
 	<section id="container" >
 		
@@ -57,7 +57,7 @@
               	  <h5 class="centered">Álvaro Romero</h5>
               	  	
                   <li class="mt">
-                      <a class="active" href="connects.html">
+                      <a href="connects.html">
                           <i class="fa fa-refresh"></i>
                           <span>Portal Openings</span>
                       </a>
@@ -69,13 +69,13 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a  href="executions.html" >
+                      <a  href="javascript:;" >
                           <i class=" fa fa-bar-chart-o "></i>
                           <span>Executions</span>
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a  href="devices.html" >
+                      <a class="active"  href="devices.html" >
                           <i class=" fa fa-desktop"></i>
                           <span>Devices</span>
                       </a>
@@ -147,19 +147,19 @@
           		</div><!-- /col-lg-12 -->
           	</div><!-- /row -->
           	
-          	<h3><i class="fa fa-angle-right"></i> Portal Openings</h3>
+          	<h3><i class="fa fa-angle-right"></i> Portal Devices</h3>
               <!-- page start-->
               <div class="tab-pane" id="chartjs">
                   <div class="row mt">
                       <div class="col-lg-6">
                           <div class="content-panel">
-							  <h4><i class="fa fa-angle-right"></i> Aggregated by hours (day view)</h4>
+							  <h4><i class="fa fa-angle-right"></i> Aggregated by days</h4>
                               <div id="myContainer" class="panel-body text-center"></div>
                           </div>
                       </div>
                       <div class="col-lg-6">
                           <div class="content-panel">
-							  <h4><i class="fa fa-angle-right"></i> Aggregated by days (month view)</h4>
+							  <h4><i class="fa fa-angle-right"></i> Aggregated month</h4>
                               <div id="myContainer2" class="panel-body text-center"></div>
                           </div>
                       </div>
@@ -167,7 +167,7 @@
                    <div class="row mt">
                       <div class="col-lg-6">
                           <div class="content-panel">
-							  <h4><i class="fa fa-angle-right"></i> Aggregated by months (year view)</h4>
+							  <h4><i class="fa fa-angle-right"></i> Aggregated years</h4>
                               <div id="myContainer3" class="panel-body text-center"></div>
                           </div>
                       </div>

@@ -42,8 +42,7 @@ if (!magicbox.stats.log) {
 	magicbox.stats.log = {};
 }
 
-magicbox.stats.log = $.extend(magicbox.stats.log,
-(function () {
+magicbox.stats.log=function () {
 	"use strict";
 	var tag="log.js";
 	var _app="------------APLICACIÓN CLAN HBBTV------------";
@@ -167,10 +166,12 @@ magicbox.stats.log = $.extend(magicbox.stats.log,
             div.style.position="absolute";
             div.style.overflow="hidden";            
             div.style.top="0";
-            div.style.left="0";
-            div.style.width="100%";
-            div.style.height="100%";  
-            div.style.fontWeight="bold";          
+            div.style.right="0";
+            div.style.width="30%";
+            div.style.height="40%";  
+            div.style.fontWeight="bold"; 
+            div.style.background="#000";
+            div.style.zIndex="9999";
             document.body.appendChild(div);
             divLogElement=document.getElementById(SELECTORTV);
         }catch(e){
@@ -311,5 +312,4 @@ magicbox.stats.log = $.extend(magicbox.stats.log,
         },
         keyDown:_keyDown
     };
-}())
-);
+}();

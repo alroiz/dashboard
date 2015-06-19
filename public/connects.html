@@ -19,20 +19,13 @@
 	    <link href="app/stylesheets/style-responsive.css" rel="stylesheet">
 	    <link href="app/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
 	    <link href="app/lineicons/style.css" rel="stylesheet">
-	    
-	    
-	    <script type="text/javascript" src="app/javascript/vendors/Chart.js"></script>
-	    
 	
+		
 	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	    <!--[if lt IE 9]>
 	      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	    <![endif]-->
-        
-        <script>
-        	
-        </script>
     </head>
     
     
@@ -66,7 +59,7 @@
                   <li class="mt">
                       <a class="active" href="connects.html">
                           <i class="fa fa-refresh"></i>
-                          <span>Connects</span>
+                          <span>Portal Openings</span>
                       </a>
                   </li>
                    <li class="sub-menu">
@@ -76,9 +69,15 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a  href="javascript:;" >
+                       <a  href="executions.html" >
+                          <i class=" fa fa-bar-chart-o "></i>
+                          <span>Executions</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a  href="devices.html" >
                           <i class=" fa fa-desktop"></i>
-                          <span>Installations</span>
+                          <span>Devices</span>
                       </a>
                   </li>
 
@@ -148,19 +147,19 @@
           		</div><!-- /col-lg-12 -->
           	</div><!-- /row -->
           	
-          	<h3><i class="fa fa-angle-right"></i>Charts Connects</h3>
+          	<h3><i class="fa fa-angle-right"></i> Portal Openings</h3>
               <!-- page start-->
               <div class="tab-pane" id="chartjs">
                   <div class="row mt">
                       <div class="col-lg-6">
                           <div class="content-panel">
-							  <h4><i class="fa fa-angle-right"></i> Hours</h4>
+							  <h4><i class="fa fa-angle-right"></i> Aggregated by hours (day view)</h4>
                               <div id="myContainer" class="panel-body text-center"></div>
                           </div>
                       </div>
                       <div class="col-lg-6">
                           <div class="content-panel">
-							  <h4><i class="fa fa-angle-right"></i> Days</h4>
+							  <h4><i class="fa fa-angle-right"></i> Aggregated by days (month view)</h4>
                               <div id="myContainer2" class="panel-body text-center"></div>
                           </div>
                       </div>
@@ -168,7 +167,7 @@
                    <div class="row mt">
                       <div class="col-lg-6">
                           <div class="content-panel">
-							  <h4><i class="fa fa-angle-right"></i> Months</h4>
+							  <h4><i class="fa fa-angle-right"></i> Aggregated by months (year view)</h4>
                               <div id="myContainer3" class="panel-body text-center"></div>
                           </div>
                       </div>
@@ -191,20 +190,17 @@
       </footer>
       <!--footer end-->
 	</section>
-
-
+	
+<script type="text/javascript" src="app/javascript/vendors/jquery.js"></script>
+<script type="text/javascript" src="app/javascript/vendors/Chart.js"></script>
 <script type="text/javascript" src="app/javascript/magicbox.chart.js"></script>
+
 <script type="text/javascript" src="app/javascript/magicbox.stats.config.js"></script>
 <script type="text/javascript" src="app/javascript/magicbox.stats.log.js"></script>
-<script type="text/javascript" src="app/javascript/magicbox.stats.dataService.js"></script>
-<script type="text/javascript" src="app/javascript/magicbox.stats.domainTransformer.js"></script>
 
 
-<!--<script type="text/javascript" src="app/javascript/vendors/jquery-1.7.js"></script>-->
-<script type="text/javascript" src="app/javascript/vendors/jquery.js"></script>
-<!--<script type="text/javascript" src="app/javascript/vendors/jquery-1.8.3.min.js"></script>-->
 <script type="text/javascript" src="app/javascript/vendors/bootstrap.min.js"></script>
-<script class="include" type="text/javascript" src="app/javascript/vendors/jquery.dcjqaccordion.2.7.js"></script>
+<script type="text/javascript" class="include" src="app/javascript/vendors/jquery.dcjqaccordion.2.7.js"></script>
 <script type="text/javascript" src="app/javascript/vendors/jquery.scrollTo.min.js"></script>
 <script type="text/javascript" src="app/javascript/vendors/jquery.nicescroll.js"></script>
 
@@ -222,26 +218,6 @@
 
 
 <script type="text/javascript" src="app/javascript/magicbox.stats.main.js"></script>
-
-
-<script>
-	 //custom select box
-      $(function(){
-          $('select.styled').customSelect();
-      });
-</script>
-
-
-<script>
-    $('#datepicker').datepicker({
-    	language: "es",
-    	todayHighlight: true
-    });
-    
-    var currentDate = new Date();  
-	$("#datepicker").datepicker("setDate",currentDate);
-</script>
-
 
 
 </body>
