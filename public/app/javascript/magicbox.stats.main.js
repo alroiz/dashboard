@@ -107,7 +107,7 @@ magicbox.stats.main = $.extend(magicbox.stats.main,
 	    		"params":{
 					"scope": "d",
 		    		"type":"range",
-					"from": "06-16-2014",
+					"from": "05-01-2015",
 					"to": "06-16-2015",
 		    		"app":{
 		    			"name":"CVTEPortal",

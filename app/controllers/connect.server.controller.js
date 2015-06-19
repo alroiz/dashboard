@@ -457,7 +457,7 @@ exports.getDevices = function(req, res, next) {
         "version": "$app.version",
         "date":"$date",
         "mac":"$mac",
-        "dateInt": { "$year":"$date" }
+        "dateInt": { "$substr": [ { "$year": "$date" }, 0, 4 ] }
       };      
     
       var match2={
