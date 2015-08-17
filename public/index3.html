@@ -4,8 +4,8 @@
 
         <script>
 
-	function _getData(url,data,callback){
-		$.ajax({
+/*	function _getData(url,data,callback){
+		return $.ajax({
 			url: url,
 		    type: 'POST',
 		    contentType:"application/json;charset=UTF-8",
@@ -16,75 +16,40 @@
 		    log.v(TAG,"Error en AJAX _postProfileUpdate " + textStatus);
 		    callback(errorThrown);
 		});     
+	}*/
+
+	function _getData(url,data){
+		return $.ajax({
+			url: url,
+		    type: 'POST',
+		    contentType:"application/json;charset=UTF-8",
+		    data: JSON.stringify(data)
+		}) 
 	}
 
-	function randomColorFactor(){
-		return Math.round(Math.random()*255);
-	};
+function sortObject(o) {
+    var sorted = {},
+    key, a = [];
 
-	function pad (str, max) {
-		str = str.toString();
- 		return str.length < max ? pad("0" + str, max) : str;
-	};
+    for (key in o) {
+    	if (o.hasOwnProperty(key)) {
+    		a.push(key);
+    	}
+    }
+
+    a.sort();
+
+    for (key = 0; key < a.length; key++) {
+    	sorted[a[key]] = o[a[key]];
+    }
+    return sorted;
+}	
+
 
         	var d = new Date();
 		    var myConfig={
 		    	"conn":{
-		    		"url":"http://192.168.1.146:3002/api/v1/getConnects",
 		    		"params":{
-						"scope": "d",
-			    		"type":"range",
-						"from": "06-16-2015",
-						"to": "06-16-2015",
-			    		"app":{
-			    			"name":"CVTEPortal",
-			    			"version":"*"
-			    		},  
-						"metadata": {
-						}
-		    		}
-		    	},
-		    	"layout":{
-		    		"container":"myContainer",
-		    		"type":"Line",
-    				"width":"400",
-    				"height":"400",
-    				"legend":"Connected devices (day view)",
-    				"dataTable": false
-		    	}
-			}
-		    var myConfig2={
-		    	"conn":{
-		    		"url":"http://192.168.1.146:3002/api/v1/getExecutions",
-		    		"params":{
-						"scope": "m",
-			    		"type":"range",
-						"from": "06-16-2015",
-						"to": "06-16-2015",
-			    		"app":{
-			    			"name":"CVTEPortal",
-			    			"version":"*"
-			    		},  
-						"metadata": {
-						}
-		    		}
-		    	},
-		    	"layout":{
-		    		"container":"myContainer",
-		    		"type":"Line",
-    				"width":"400",
-    				"height":"400",
-    				"legend":"Connected devices (month view)"		    		
-		    	}
-			}
-		    var myConfig3={
-		    	"conn":{
-		    		"url":"http://192.168.1.146:3002/api/v1/getExecutions",
-		    		"params":{
-						"scope": "y",
-			    		"type":"range",
-						"from": "06-16-2015",
-						"to": "06-16-2015",
 			    		"app":{
 			    			"name":"CVTEPortal",
 			    			"version":"*"
@@ -96,19 +61,15 @@
 		    	"layout":{
 		    		"container":"myContainer",
 		    		"type":"Bar",
-    				"width":"400",
-    				"height":"400",
-    				"legend":"Connected devices (year view)"		    		
+    				"width":"580",
+    				"height":"420",
+    				"legend":"Portal opennings",
+    				"dataTable": false
 		    	}
 			}
-		    var myConfig4={
+		    var myConfig2={
 		    	"conn":{
-		    		"url":"http://localhost:3002/api/v1/getExecutions",
 		    		"params":{
-						"scope": "y",
-			    		"type":"range",
-						"from": "06-16-2015",
-						"to": "06-16-2015",
 			    		"app":{
 			    			"name":"CVTEPortal",
 			    			"version":"*"
@@ -118,105 +79,127 @@
 		    		}
 		    	},
 		    	"layout":{
-		    		"container":"myContainer",
-		    		"type":"Pie",
-    				"width":"400",
-    				"height":"400",
-    				"legend":"Connected devices (year view)"		    		
+		    		"container":"myContainer2",
+		    		"type":"Line",
+    				"width":"580",
+    				"height":"420"
 		    	}
-			}			
+			}
+		    var myConfig3={
+		    	"conn":{
+		    		"params":{
+			    		"app":{
+			    			"name":"CVTEPortal",
+			    			"version":"*"
+			    		},  
+						"metadata": {
+						}
+		    		}
+		    	},
+		    	"layout":{
+		    		"container":"myContainer3",
+		    		"type":"Bar",
+    				"width":"580",
+    				"height":"420"
+		    	}
+			}
+
 			var myChart;
 			var myChart2;
 			var myChart3;
 			var myChart4;
 			var chartTest;
+
         	function init(){
-        		_getData(myConfig.conn.url,myConfig.conn.params,_makeChart)
+        		var myData=_getData("http://localhost:3002/api/v1/getConnectsToday",myConfig.conn.params);
+        		var myData2=_getData("http://localhost:3002/api/v1/getConnects30Days",myConfig.conn.params);
+        		var myData3=_getData("http://localhost:3002/api/v1/getConnects365Days",myConfig.conn.params);
+        		var myData4=_getData("http://localhost:3002/api/v1/getConnectsCurrentMonth",myConfig2.conn.params);
+				var myData5=_getData("http://localhost:3002/api/v1/getConnects12Months",myConfig2.conn.params);        		
+        		var myData6=_getData("http://localhost:3002/api/v1/getConnectsCurrentYear",myConfig3.conn.params);
+				var myData7=_getData("http://localhost:3002/api/v1/getConnects1Year",myConfig3.conn.params);        						
+  
+
+				$.when(myData, myData2, myData3).then(function() {
+				  // Ambas habrán tenido éxito
+				  var myChart=new magicbox.magicChart();
+				  myChart.init(myConfig.layout);
+				  //var myCanvas=myChart.createCanvasElement(myConfig.layout);
+				  for (var i=0,max=arguments.length;i<max;i+=1){
+				  	myChart.addLabels(_makeLabels(arguments[i][0]));
+				  	myChart.addDataset(_makeDataset(arguments[i][0]),arguments[i][0].metadata.abstract);
+				  }
+				  myChart.render();
+				}, function() {
+				  // Alguna ha fallado
+				}, function() {
+				  // Pase lo que pase, siempre vamos a quitar el elemento cargando
+				  
+				});
+
+				$.when(myData4, myData5).then(function() {
+				  // Ambas habrán tenido éxito
+				  var myChart2=new magicbox.magicChart();
+				  myChart2.init(myConfig2.layout);
+				  //var myCanvas=myChart.createCanvasElement(myConfig.layout);
+				  for (var i=0,max=arguments.length;i<max;i+=1){
+				  	myChart2.addLabels(_makeLabels(arguments[i][0]));
+				  	myChart2.addDataset(_makeDataset(arguments[i][0]),arguments[i][0].metadata.abstract);
+				  }
+				  myChart2.render();
+				}, function() {
+				  // Alguna ha fallado
+				}, function() {
+				  // Pase lo que pase, siempre vamos a quitar el elemento cargando
+				  
+				});		
+				$.when(myData6, myData7).then(function() {
+				  // Ambas habrán tenido éxito
+				  var myChart3=new magicbox.magicChart();
+				  myChart3.init(myConfig2.layout);
+				  //var myCanvas=myChart.createCanvasElement(myConfig.layout);
+				  for (var i=0,max=arguments.length;i<max;i+=1){
+				  	myChart3.addLabels(_makeLabels(arguments[i][0]));
+				  	myChart3.addDataset(_makeDataset(arguments[i][0]),arguments[i][0].metadata.abstract);
+				  }
+				  myChart3.render();
+				}, function() {
+				  // Alguna ha fallado
+				}, function() {
+				  // Pase lo que pase, siempre vamos a quitar el elemento cargando
+				  
+				});				
         	}
 
 
-        	function _makeChart(data){
-        		var myData=_makeChartData(data);
-        		myChart=new magicbox.magicChart();
-        		myChart.init(myData,myConfig);
-        	}
+			function _makeLabels(json){
+				var myJSON=json.data[0];
+				var _labels=[];
+				for (var k in myJSON) {
+    				if (myJSON.hasOwnProperty(k)) {
+			       		_labels.push(k);
+			       	}
+			    }		
+			    return _labels;		
+			}
 
 
-        	function _addDataset(){
-        		var chartTest=myChart.getChart();
-		        var dataset={};
-		        dataset.label="New";
-				dataset.fillColor= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.5)";
-				dataset.strokeColor= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.8)";
-				dataset.highlightFill= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.75)";
-				dataset.highlightStroke= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",1)";
-	       		dataset.data=[];
-	       		for (var i=0;i<=23;i+=1){
-	       			dataset.data.push(34);
-	       		}
-	       		chartTest.datasets.push(dataset);
-	       		chartTest.update();        		
-        	}
-
-
-
-			function _makeChartData(json){
-		        var myJSON=json.data;
+			function _makeDataset(json){
+		        var myJSON=sortObject(json.data[0]);
 		        var myMetadata=json.metadata;
-		        var _chartDataItem;
 
-		   		var max;
-
-
-		   		if (myMetadata.scope==="d"){
-		   			max=23;
-		   		}else if (myMetadata.scope==="m"){
-		   			max=30;
-		   		}else if (myMetadata.scope==="y"){
-		   			max=11;
-		   		};
-
-		   		if (myConfig.layout.type==="Line" || myConfig.layout.type==="Bar"){
-		   			_chartDataItem={};
-		        	_chartDataItem.labels=[];
-		        	_chartDataItem.datasets=[];
-			        for (var i=0;i<=max;i+=1){
-			        	_chartDataItem.labels.push(i)
-			        }
-
-
-			       	for (var k=0,maxk=myJSON.length;k<maxk;k+=1){
-				        var dataset={};
-				        dataset.label="New";
-						dataset.fillColor= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.5)";
-						dataset.strokeColor= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.8)";
-						dataset.highlightFill= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.75)";
-						dataset.highlightStroke= "rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",1)";
-			       		dataset.data=[];
-			       		for (var i=0;i<=max;i+=1){
-			       			dataset.data.push(myJSON[k][pad(i,2)])
-			       		}
-			       		_chartDataItem.datasets.push(dataset);
+		        var _dataset=[];
+				for (var k in myJSON) {
+    				if (myJSON.hasOwnProperty(k)) {
+    					if ($.isNumeric(myJSON[k])){
+    						_dataset.push(Math.round(myJSON[k] * 100) / 100);	
+    					}
 			       	}
 			    }
-			    else if (_config.layout.type==="Pie" || _config.layout.type==="Doughnut"){
-			    	_chartDataItem=[];
-			        for (var i=0;i<=max;i+=1){
-			        	var _dataItem={};
-			        	_dataItem.label=i;
-			        	_dataItem.hihglight="rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",0.5)";
-			        	_dataItem.color="rgba("+randomColorFactor()+","+randomColorFactor()+","+randomColorFactor()+",1)";
-			        	_dataItem.value=myJSON[0][pad(i,2)];
-			        	_chartDataItem.push(_dataItem);	
-			        }	    	
-			    }
-			    if (myConfig.layout.dataTable){
-			    	_makeDataTable(myJSON[0]);
-			    }
-
-			    return _chartDataItem
-				//_render(_chartDataItem);
+			    return _dataset
 			}        	
+
+
         </script>
     </head>
 <body onload="init()">
@@ -224,9 +207,7 @@
 
 <a href="javascript:_addDataset()">Add dataset</a>
 
-<div id="myContainer">
-
-</div>
+<div id="myContainer"></div>
 <div id="myContainer2"></div>
 <div id="myContainer3"></div>
 
